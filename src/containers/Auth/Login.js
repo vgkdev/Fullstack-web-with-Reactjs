@@ -10,7 +10,38 @@ import { FormattedMessage } from "react-intl";
 class Login extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      username: "",
+      password: "",
+      isShowPassword: false,
+    };
   }
+
+  handleOnChangeUsername = (event) => {
+    this.setState({
+      username: event.target.value,
+    });
+    // console.log(event.target.value);
+  };
+
+  handleOnChangePassword = (event) => {
+    this.setState({
+      password: event.target.value,
+    });
+    //console.log(event.target.value);
+  };
+
+  handleShowHidePassword = () => {
+    this.setState({
+      isShowPassword: !this.state.isShowPassword,
+    });
+  };
+
+  handleLogin = () => {
+    console.log(
+      "username: " + this.state.username + "\nPassword: " + this.state.password
+    );
+  };
 
   render() {
     return (
@@ -24,20 +55,45 @@ class Login extends Component {
                 type="text"
                 className="form-control"
                 placeholder="Enter your username"
+                value={this.state.username}
+                onChange={(event) => this.handleOnChangeUsername(event)}
               />
             </div>
 
             <div className="col-12 form-group login-input">
               <label>Password:</label>
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Enter your password"
-              />
+              <div className="custom-input-password">
+                <input
+                  type={this.state.isShowPassword ? "text" : "password"}
+                  className="form-control"
+                  placeholder="Enter your password"
+                  onChange={(event) => this.handleOnChangePassword(event)}
+                />
+                <span
+                  onClick={() => {
+                    this.handleShowHidePassword();
+                  }}
+                >
+                  <i
+                    className={
+                      this.state.isShowPassword
+                        ? "fas fa-eye"
+                        : "fas fa-eye-slash"
+                    }
+                  ></i>
+                </span>
+              </div>
             </div>
 
             <div className="col-12">
-              <button className="btn-login">Login</button>
+              <button
+                className="btn-login"
+                onClick={() => {
+                  this.handleLogin();
+                }}
+              >
+                Login
+              </button>
             </div>
 
             <div className="col-12">

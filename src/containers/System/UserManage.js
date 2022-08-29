@@ -2,8 +2,13 @@ import React, { Component } from "react";
 //import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./UserManage.scss";
-import { getAllUsers, createNewUserService } from "../../services/userService";
+import {
+  getAllUsers,
+  createNewUserService,
+  deleteUserService,
+} from "../../services/userService";
 import ModalUser from "./ModalUser";
+import { emitter } from "../../utils/emitter";
 
 class UserManage extends Component {
   constructor(props) {
@@ -49,12 +54,26 @@ class UserManage extends Component {
         this.setState({
           isOpenModalUser: false,
         });
+        emitter.emit("EVENT_CLEAR_MODAL_DATA");
       }
       console.log("response create user ", response);
     } catch (e) {
       console.log(e);
     }
     console.log("check data from child ", data);
+  };
+
+  handleDeleteUser = async (user) => {
+    try {
+      let respose = await deleteUserService(user.id);
+      if (respose && respose.errCode === 0) {
+        await this.getALlUsersFromReact();
+      } else {
+        alert(respose.errMessage);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   /** Life cycle
@@ -107,7 +126,12 @@ class UserManage extends Component {
                         <button className="btn-edit">
                           <i className="fas fa-user-edit"></i>
                         </button>
-                        <button className="btn-delete">
+                        <button
+                          className="btn-delete"
+                          onClick={() => {
+                            this.handleDeleteUser(item);
+                          }}
+                        >
                           <i className="fas fa-trash"></i>
                         </button>
                       </td>

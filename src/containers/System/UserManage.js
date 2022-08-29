@@ -6,9 +6,11 @@ import {
   getAllUsers,
   createNewUserService,
   deleteUserService,
+  editUserService,
 } from "../../services/userService";
 import ModalUser from "./ModalUser";
 import { emitter } from "../../utils/emitter";
+import ModalEditUser from "./ModalEditUser";
 
 class UserManage extends Component {
   constructor(props) {
@@ -16,6 +18,8 @@ class UserManage extends Component {
     this.state = {
       arrUsers: [],
       isOpenModalUser: false,
+      isOpenModalEditUser: false,
+      userEdit: {},
     };
   }
 
@@ -41,6 +45,12 @@ class UserManage extends Component {
   toggleUserModal = () => {
     this.setState({
       isOpenModalUser: !this.state.isOpenModalUser,
+    });
+  };
+
+  toggleUserModalEditUser = () => {
+    this.setState({
+      isOpenModalEditUser: !this.state.isOpenModalEditUser,
     });
   };
 
@@ -76,6 +86,30 @@ class UserManage extends Component {
     }
   };
 
+  handleEditUser = (user) => {
+    console.log("check edit user: ", user);
+    this.setState({
+      isOpenModalEditUser: true,
+      userEdit: user,
+    });
+  };
+
+  doEditUser = async (user) => {
+    try {
+      let response = await editUserService(user);
+      if (response && response.errCode === 0) {
+        this.setState({
+          isOpenModalEditUser: false,
+        });
+        await this.getALlUsersFromReact();
+      } else {
+        alert(response.errCode);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   /** Life cycle
    * Run component:
    * 1. constructor -> init state
@@ -93,6 +127,14 @@ class UserManage extends Component {
           toggleFromParent={this.toggleUserModal} //truyền func đến child component để hot reload page
           createNewUser={this.createNewUser} //truyền func thuần, không có giá trị createNewUser()
         />
+        {this.state.isOpenModalEditUser && (
+          <ModalEditUser
+            isOpen={this.state.isOpenModalEditUser}
+            toggleFromParent={this.toggleUserModalEditUser} //truyền func đến child component để hot reload page
+            currentUser={this.state.userEdit}
+            editUser={this.doEditUser}
+          />
+        )}
         <div className="title text-centet"> Manage users</div>
         <div className="mx-1">
           <button
@@ -123,7 +165,10 @@ class UserManage extends Component {
                       <td>{item.lastName}</td>
                       <td>{item.address}</td>
                       <td>
-                        <button className="btn-edit">
+                        <button
+                          className="btn-edit"
+                          onClick={() => this.handleEditUser(item)}
+                        >
                           <i className="fas fa-user-edit"></i>
                         </button>
                         <button

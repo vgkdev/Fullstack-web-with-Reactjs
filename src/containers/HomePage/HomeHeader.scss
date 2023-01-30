@@ -1,7 +1,7 @@
 .home-header-container {
   height: 60px;
   width: 100%;
-  padding: 0 20px;
+  padding: 0 50px;
 
   .home-header-content {
     width: 100%;
@@ -9,20 +9,21 @@
     display: flex;
 
     .left-content {
-      width: 25%;
+      width: 20%;
       display: flex;
-      border: 1px solid red;
+      // border: 1px solid red;
       align-items: center;
 
       .header-logo {
-        background: url("../../assets/bookingcare-2020.svg") center center
-          no-repeat;
-        height: 100%;
-        width: 100%;
+        // border: 1px solid red;
+        height: 60%;
+        width: 60%;
         cursor: pointer;
+        // transform: scale(0.6, 0.6);
       }
 
       i {
+        // border: 1px solid red;
         font-size: 25px;
         color: grey;
         cursor: pointer;
@@ -30,8 +31,8 @@
     }
 
     .center-content {
-      width: 50%;
-      border: 1px solid red;
+      width: 55%;
+      // border: 1px solid red;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -46,10 +47,39 @@
 
     .right-content {
       width: 25%;
-      border: 1px solid red;
+      // border: 1px solid red;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
+
+      .support {
+        padding-right: 50px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        i {
+          font-size: 15px;
+          margin-right: 5px;
+        }
+      }
+
+      .language-vi {
+        cursor: pointer;
+        &.active {
+          color: orange;
+        }
+      }
+
+      //.language-vi active
+
+      .language-en {
+        margin: 0 10px;
+        cursor: pointer;
+        &.active {
+          color: blue;
+        }
+      }
     }
   }
 }
@@ -64,9 +94,13 @@
   flex-direction: column;
 
   .content-up {
-    border: 1px solid red;
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.25),
+      rgba(255, 255, 255, 0.1)
+    );
+    // border: 1px solid red;
     padding-top: 15px;
-    height: 50%;
+    height: 65%;
 
     .title1 {
       text-align: center;
@@ -112,8 +146,16 @@
   }
 
   .content-down {
-    border: 1px solid red;
-    height: 50%;
+    // border: 1px solid red;
+    height: 35%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background-image: linear-gradient(
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 1)
+    );
 
     .options {
       text-align: center;
@@ -122,7 +164,7 @@
       justify-content: center;
 
       .option-child {
-        border: 1px solid red;
+        // border: 1px solid red;
         width: 100px;
 
         .icon-child {

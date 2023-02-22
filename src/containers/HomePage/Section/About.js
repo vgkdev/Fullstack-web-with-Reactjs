@@ -14,9 +14,9 @@ class About extends Component {
                 height="400px"
                 src="https://www.youtube.com/embed/ONEdrgpFW_4"
                 title="Sự Thật Về Chuyện Trái Ngành Rẽ Ngang Qua Coder | Anh Cơ Khí Muốn Tự Học Từ Đầu Mất Bao Lâu ?"
-                frameborder="0"
+                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
+                allowFullScreen
               ></iframe>
             </div>
             <div className="content-right">
